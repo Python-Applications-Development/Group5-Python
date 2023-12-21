@@ -1,8 +1,6 @@
 TOTAL_PARKING = 30
 
-
-parking_spots = [{"occupied": False, "license": None} for _ in range(TOTAL_PARKING)]  
-
+parking_spots = [{"occupied": False, "license": None} for _ in range(TOTAL_PARKING)]
 
 def display_parking_spots():
     print("Parking spots:")
@@ -11,6 +9,7 @@ def display_parking_spots():
         print(f"Spot {i}: {status}")
 
 def book_parking_spot(spot_number, license_number):
+    license_number = license_number[:6]
     if 1 <= spot_number <= TOTAL_PARKING:
         if not parking_spots[spot_number - 1]["occupied"]:
             parking_spots[spot_number - 1]["occupied"] = True
@@ -20,7 +19,6 @@ def book_parking_spot(spot_number, license_number):
             print(f"Spot {spot_number} is already occupied.")
     else:
         print("Invalid spot number. Please choose a spot between 1 and 30.")
-
 
 def find_spot_by_license(license_number):
     for i, spot in enumerate(parking_spots, 1):
@@ -45,14 +43,13 @@ def display_parking_status():
     print(f"Occupied spots: {occupied_spots}")
     print(f"Empty spots: {empty_spots}")
 
-
 #Main loop to manage parking
 while True:
     print("\nOptions:")
     print("1. Display parking spots")
     print("2. Book a parking spot")
     print("3. Release a parking spot")
-    print("4. Find spot by license plate number")  # New option
+    print("4. Find spot by license plate number") 
     print("5. Exit")
 
     choice = input("Enter your choice: ")
@@ -60,15 +57,13 @@ while True:
         display_parking_spots()
     elif choice == "2":
         spot = int(input("Enter the spot number to book: "))
-        license_number = input("Enter the vehicle license plate number: ")
+        license_number = input("Enter the vehicle license plate number (up to 6 characters): ")
         book_parking_spot(spot, license_number)
     elif choice == "3":
         spot = int(input("Enter the spot number to release: "))
         release_parking_spot(spot)
-
-  
     elif choice == "4":
-        license_number = input("Enter the vehicle license plate number: ")
+        license_number = input("Enter the vehicle license plate number (up to 6 characters): ")
         find_spot_by_license(license_number)  # New functionality
     elif choice == "5":
         print("Exiting the parking system.")
